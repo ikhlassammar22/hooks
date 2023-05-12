@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import Navbar from './component/Navbar';
+import Cardlist from './component/Cardlist';
+import {movies} from './data';import { useState } from 'react';
+import AddCard from './component/AddCard';
+
 
 function App() {
+  const [searchMovies,setSearchMovies]=useState('') 
+  const [allCards, setAllCardss] = useState(movies)
+  const [rating,setRating]=useState(0)
+  const getCards=(title,desc,posterUrl,rating,trailerSrc)=>{
+    console.log("ccccccccc");
+        // setAllTasks([...allTasks, {id:Date.now(),description,user,isDone:false}]);
+        setAllCardss((prev) => [...prev, {id:Date.now(),title,desc,posterUrl,rating,trailerSrc}]);
+      }
+     
+  const funsun=(valu)=> {
+     setSearchMovies(valu)
+  }
+  
+  
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Navbar funsun={funsun} rating={rating} setRating={setRating}/>
+       <AddCard getCards={getCards}/>
+       <div className="container">
+        <div className='row'>
+          <h1>listes :</h1>
+          
+              <Cardlist   movies={allCards } valsearch={searchMovies} rating={rating}/>:
+          </div>
+        </div>
     </div>
   );
 }
